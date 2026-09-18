@@ -1,0 +1,7 @@
+packages:
+  - .
+
+nodeLinker: hoisted
+# 宿主侧 @deepseek-ai/* 包只做源码目录 node --test 用；它们互相声明的 peer 必须自动补齐，
+# 否则 hoisted 布局下 dsh-compaction 找不到 dsh-commands / dsh-session 的间接依赖。
+autoInstallPeers: true

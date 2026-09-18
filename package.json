@@ -1,0 +1,35 @@
+{
+  "name": "@sol-pi-port/dsh-context-compact",
+  "version": "0.1.0",
+  "description": "Online Context Compact for DSH: a fresh CompactionEngine implementation (basic-aligned obligations) with an evidence-preserving archive step, an economic gate, and an independent audit sink. Disabled by default; disabled means zero listeners and zero writes.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.2",
+    "@deepseek-ai/dsh-compaction": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-llm": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-session": "0.1.5-rc.2",
+    "@deepseek-ai/dsh-spill": "0.1.5-rc.2",
+    "@deepseek-ai/schemastery": "3.18.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ase-sketch/dsh-context-compact.git"
+  }
+}

@@ -1,0 +1,22 @@
+# dsh-context-compact — loader-level assembly proofs
+
+### eval
+  PASS  the assembled tree loads and stops only at llm-replay's fixture requirement   [exit 1]
+  PASS  re-inserting the id is rejected (the profile entry is a live loader id)   [exit 1]
+  probe: {"exports":["ContextCompactEngine","apply","name"],"hasDefault":false,"name":"context-compact","inject":["llm","tokenMeter","sessions"],"engine":"ContextCompactEngine","methods":["function","function","function"],"enabled":false,"archive":true,"auditPath":"/home/li/.dsh/state/context-compact/context-compact-audit.jsonl"}
+  PASS  the installed bytes mount and provide ctx.compaction   [ContextCompactEngine]
+  PASS  named exports only (no default export)
+  PASS  the three engine methods are present
+  PASS  installed bytes report the frozen disabled-by-default policy   [enabled=false archive=true]
+
+### record-eval
+  PASS  record-eval is never executed here (it has no replay plugin, so a run would be a real API call)   [skipped by design]
+  PASS  re-inserting the id is rejected (the profile entry is a live loader id)   [exit 1]
+  probe: {"exports":["ContextCompactEngine","apply","name"],"hasDefault":false,"name":"context-compact","inject":["llm","tokenMeter","sessions"],"engine":"ContextCompactEngine","methods":["function","function","function"],"enabled":false,"archive":true,"auditPath":"/home/li/.dsh/state/context-compact/context-compact-audit.jsonl"}
+  PASS  the installed bytes mount and provide ctx.compaction   [ContextCompactEngine]
+  PASS  named exports only (no default export)
+  PASS  the three engine methods are present
+  PASS  installed bytes report the frozen disabled-by-default policy   [enabled=false archive=true]
+
+checks: 12, failures: 0
+loader proofs PASSED

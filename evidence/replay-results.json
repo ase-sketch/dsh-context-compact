@@ -1,0 +1,196 @@
+{
+  "generatedAt": "2026-09-15T14:48:11.094Z",
+  "fingerprintDev": "90c9e95a17f31df2b0a7c5bd1270e3ad25a5128b54188762b45cba326d4d29b1",
+  "allGood": true,
+  "rows": [
+    {
+      "fixture": "dev/sum-csv",
+      "run1": "b3f2a49d167b122125c8401bcbcfa55f11766a7224acfb31f9769a0163469951",
+      "run2": "b3f2a49d167b122125c8401bcbcfa55f11766a7224acfb31f9769a0163469951",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "b3f2a49d167b122125c8401bcbcfa55f11766a7224acfb31f9769a0163469951",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 3,
+      "replayRows": [
+        3,
+        3
+      ]
+    },
+    {
+      "fixture": "dev/read-big-log",
+      "run1": "177fc3d4e77a440b284b17e4a0e19b75739ba4a0afcd6936f536ca13cf517ebc",
+      "run2": "177fc3d4e77a440b284b17e4a0e19b75739ba4a0afcd6936f536ca13cf517ebc",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "177fc3d4e77a440b284b17e4a0e19b75739ba4a0afcd6936f536ca13cf517ebc",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 3,
+      "replayRows": [
+        3,
+        3
+      ]
+    },
+    {
+      "fixture": "dev/revisit-config",
+      "run1": "33771f7f967e875483e958a15a8e4197976c0a845b63cd596d369f3a31ac08f8",
+      "run2": "33771f7f967e875483e958a15a8e4197976c0a845b63cd596d369f3a31ac08f8",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "33771f7f967e875483e958a15a8e4197976c0a845b63cd596d369f3a31ac08f8",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 5,
+      "replayRows": [
+        5,
+        5
+      ]
+    },
+    {
+      "fixture": "dev/count-active-json",
+      "run1": "2f52f08761e4721384ce8ad48ac7676ae790b9078ecf87e5be85342a179a3458",
+      "run2": "2f52f08761e4721384ce8ad48ac7676ae790b9078ecf87e5be85342a179a3458",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "2f52f08761e4721384ce8ad48ac7676ae790b9078ecf87e5be85342a179a3458",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 3,
+      "replayRows": [
+        3,
+        3
+      ]
+    },
+    {
+      "fixture": "dev/fix-parser-test",
+      "run1": "6827e564bd2dd8929941c38e7a5131458a2fe2ed85826103e7e6d9d936c4da6c",
+      "run2": "6827e564bd2dd8929941c38e7a5131458a2fe2ed85826103e7e6d9d936c4da6c",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "6827e564bd2dd8929941c38e7a5131458a2fe2ed85826103e7e6d9d936c4da6c",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 6,
+      "replayRows": [
+        6,
+        6
+      ]
+    },
+    {
+      "fixture": "dev/chain-lookup",
+      "run1": "1a8379f46016ddd22ba7af0a28d4f08ebf7cad2802dfc8c70bcb244858d23508",
+      "run2": "1a8379f46016ddd22ba7af0a28d4f08ebf7cad2802dfc8c70bcb244858d23508",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "1a8379f46016ddd22ba7af0a28d4f08ebf7cad2802dfc8c70bcb244858d23508",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 9,
+      "replayRows": [
+        9,
+        9
+      ]
+    },
+    {
+      "fixture": "dev/failing-test-suite",
+      "run1": "172e4dc94f41e1f98be55a4c2fca2ba0f10898572ddc947ecf660d051d3d96d3",
+      "run2": "172e4dc94f41e1f98be55a4c2fca2ba0f10898572ddc947ecf660d051d3d96d3",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "172e4dc94f41e1f98be55a4c2fca2ba0f10898572ddc947ecf660d051d3d96d3",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 7,
+      "replayRows": [
+        7,
+        7
+      ]
+    },
+    {
+      "fixture": "dev/rerun-test-suite",
+      "run1": "25a71875f5e500fbebf413e3d0f0484057508c4f739d627aee1ec018f66c4e4b",
+      "run2": "25a71875f5e500fbebf413e3d0f0484057508c4f739d627aee1ec018f66c4e4b",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "25a71875f5e500fbebf413e3d0f0484057508c4f739d627aee1ec018f66c4e4b",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 7,
+      "replayRows": [
+        7,
+        7
+      ]
+    },
+    {
+      "fixture": "dev/fix-stats-tests",
+      "run1": "78a77fad110b5fc23729d3f36651f912a7db176ae40327e705cd95161015507a",
+      "run2": "78a77fad110b5fc23729d3f36651f912a7db176ae40327e705cd95161015507a",
+      "run1EqualsRun2": true,
+      "matchesBaseline": true,
+      "baselineRun1": "78a77fad110b5fc23729d3f36651f912a7db176ae40327e705cd95161015507a",
+      "verdict": {
+        "identical": true,
+        "allExitZero": true,
+        "allVerified": true,
+        "faithful": true,
+        "g1Pass": true
+      },
+      "faithful": true,
+      "recordedRows": 7,
+      "replayRows": [
+        7,
+        7
+      ]
+    }
+  ]
+}

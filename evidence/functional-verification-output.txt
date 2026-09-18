@@ -1,0 +1,104 @@
+# dsh-context-compact — zero-API functional verification
+
+- node v26.8.2
+- workspace /tmp/cc-functional-EUJrfc
+- LLM: FakeLlm (deterministic chunks; no network, no provider keys)
+- session/surface/brackets/pairing/cordis: real host code
+
+### 1. disabled by default: no listener, no measurement, no write
+  PASS  compactIfNeeded returns null while disabled   [null]
+  PASS  no token measurement happened   [measureCalls=0]
+  PASS  no model route resolution happened   [resolveCalls=0]
+  PASS  a real waterfall dispatch never reaches the engine (zero listeners)   [reached=0]
+  PASS  no compaction event was appended   [turn/start,step/start,request/header,system/message,user/message,assistant/message,tool/call,tool/result,step/end,step/start,user/message,assistant/message,tool/call,tool/result,step/end,step/start,user/message,assistant/message,tool/call,tool/result,step/end,step/start,user/message]
+  PASS  no audit file was written
+
+### 2. one complete compaction: start -> archive -> summary -> replace -> end
+  event sequence after turn/end: compaction/start -> compaction/summary -> user/message -> compaction/end
+  PASS  the bracket is exactly start -> summary -> user/message -> end
+  PASS  start/end share one compactionId   [68f7874d-d075-4c3a-97fb-c1b189716005]
+  PASS  the close carries no error
+  PASS  the manual bracket is standalone (turn: null)
+  PASS  the replacement is an atomic surfaceOp replace over the span   [{"op":"replace","startSeq":4,"endSeq":19}]
+  PASS  the replacement carries the backend-independent checkpoint source   [{"kind":"plugin","plugin":"compact","compactionId":"68f7874d-d075-4c3a-97fb-c1b189716005"}]
+  PASS  the checkpoint cites start/summary/shadowed events
+  surface 3,4,5,7,10,11,13,16,17,19,22 -> 3,27,22 (replaceGeneration 1)
+  PASS  surface = [system head, checkpoint, retained tail]
+  PASS  the system head and the tail are untouched
+  PASS  replaceGeneration advanced exactly once
+  PASS  the shadowed span is a contiguous tool-pairing-balanced range
+  PASS  the first completed step pair is inside the span
+  PASS  the trailing user message is retained outside the span
+  archive locator: 1 call(s)
+  PASS  the 原文 archive holds one header plus one line per shadowed event
+  PASS  the archive header names the same span
+  PASS  the archive is recoverable from the log vocabulary
+  PASS  compaction/summary marks the llm stream call
+  PASS  compaction/summary carries the complete rawOutput
+  PASS  compaction/summary carries usage   [{"inputTokens":111,"cacheReadTokens":222,"cacheWriteTokens":333,"outputTokens":44}]
+  PASS  the summarization call reuses the session system prefix   [system]
+  PASS  the summarization call ends with this plugin's instruction
+  PASS  the summarization call is a one-shot compaction purpose
+  PASS  the manual path ran the durability checkpoint once
+  audit: {"schema":"sol-pi-port/dsh-context-compact-audit/1","time":"2026-09-15T16:07:12.088Z","event":"compaction","trigger":"manual","sessionId":"session-manual","turn":null,"compactionId":"68f7874d-d075-4c3a-97fb-c1b189716005"…
+  PASS  the audit line is committed and complete
+  PASS  the audit line records the archive locator   [spill://unit/1/compaction-68f7874d-d075-4c3a-97fb-c1b189716005.jsonl]
+  PASS  the audit line records the gate as not evaluated for an explicit manual run
+  PASS  the audit line records the summarizer route and framed price   [112]
+  PASS  no compaction/start is left unmatched
+
+### 3. pressure trigger + explicit toolResultPruner wiring
+  PASS  pressure above the 80% threshold compacts   [{"start":4,"end":16}]
+  PASS  the pruner was called explicitly (it never listens for events)   [pruneSession calls=1]
+  PASS  the bracket is enclosed in the open turn
+  PASS  the audit line names the pressure trigger and the resolved turn   [trigger=pressure turn=1]
+  PASS  below the threshold nothing happens
+  PASS  the quiet path writes no audit line
+
+### 4. context-overflow recovery: retry once with a durable budget
+  PASS  the first overflow is answered with a retry   [{"kind":"retry"}]
+  PASS  a replacement landed
+  PASS  the second attempt is refused by the retry budget   ["next"]
+  PASS  no further replacement happened
+
+### 5. evidence preservation is fail-closed
+  PASS  a rejected archive fails the request   [summary]
+  PASS  nothing was replaced
+  PASS  no summary landed and the bracket still closed with an error
+  PASS  the audit line states the refusal   [failed/archive]
+  PASS  a missing spillStore refuses compaction too   [no spillStore is composed; evidence preservation forbids replacing history that cannot be archived]
+
+### 6. llm-replay reads the compacted session and replays the summary call
+  fixture: /tmp/cc-functional-EUJrfc/session-compacted.jsonl (6432 bytes, format v3)
+  PASS  llm-replay parses the header of a compacted session   [session-manual]
+  PASS  llm-replay parses every event, compaction/* included   [29/29]
+  PASS  llm-replay sees the compaction/summary record
+  derived model calls: 1; chunks: block-start,block-end,usage,finish
+  PASS  the compaction call is reconstructed at its log position
+  PASS  the reconstruction is block-start/block-end per rawOutput block + usage + finish   [block-start,block-end,usage,finish]
+  PASS  the reconstructed block equals the recorded rawOutput
+  PASS  the reconstructed usage equals the recorded usage
+  PASS  loadReplayScript(file) yields the same script
+  PASS  the intercepted call replays the recorded chunks   [block-start,block-end,usage,finish]
+  PASS  the replay consumed the fixture completely (assertConsumed)
+
+### 7. the economic gate decides the pressure trigger (M2: veto + real inputs)
+  gate: horizon_unavailable (compact=false, horizon=null)
+  PASS  no todo signal means no horizon, and the pressure compaction is refused
+  PASS  the refusal writes a deferred audit line instead of a transaction
+  PASS  the refusal appends no session event at all   [23 -> 23]
+  PASS  the refusal never pays for a summarization call
+  PASS  nothing was replaced or archived
+  gate: economic; horizon input [1] / 5 open; breakeven 5.68
+  PASS  a todo boundary opens a horizon and the compaction runs
+  PASS  the gate inputs are the tracker's real observations
+  PASS  the sub-sequence HINT aligned the cut to the plan boundary
+  PASS  priorCompactionCount comes from the durable log
+  debt: 170000 written tokens at ratio 2 -> 140096 carried, 29904 retired this step
+  PASS  the committed compaction's cache-write becomes carried debt   [{"carriedDebtTokens":140096,"cacheDebtRepaymentTokens":29904}]
+  PASS  one step retires exactly the compaction's per-step saving   [29904 vs 29904]
+  PASS  the gate's 'no' has no authority over overflow recovery
+  PASS  and the refusal verdict is still recorded verbatim
+
+checks: 72, failures: 0
+functional verification PASSED
